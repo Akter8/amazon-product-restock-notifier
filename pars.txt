@@ -1,0 +1,6 @@
+url=*product url here*
+user_agent=*user agent here*
+login=*email id here*
+pass=*password here*
+target=*target id here*
+leave_this=as_is
