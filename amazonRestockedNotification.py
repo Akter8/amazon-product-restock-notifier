@@ -46,7 +46,8 @@ def checkAvailablity():
         availablity = soup.find(id="availability").get_text().strip()
         availablity = availablity.split('\n')
         if availablity[0] == "In stock.":
-            price = soup.find(id='priceblock_ourprice')
+            price = soup.find(id='priceblock_ourprice').get_text()
+            price = price[2:]
             sendMail(price)
     except requests.exceptions.ConnectionError:
         time.sleep(5)
@@ -63,7 +64,7 @@ def sendMail(price):
 #		server.login("abcd@gmail.com", "lndhrbjcwfqgddfdd")
     server.login('****Your Email*****', '****Your Password****')
     subject = 'Amazon item has been restocked!!'
-    body = 'The item you have been waiting for has been restocked. The price is ' + price + '\\nCheck this link out https://www.amazon.in/dp/B00KLVYRYS/ref=cm_sw_r_wa_apa_i_lpW0CbC5139R4'
+    body = 'The item you have been waiting for has been restocked. The price is ' + price + '. Check this link out ' + url
     message = f"Subject: {subject}\n\n{body}"
     server.sendmail(
         '****Your Email****',
