@@ -1,13 +1,12 @@
 # Changes to be made before use:
-#	. Make the necessary changes in the URL.
-#   . Update your "User-Agent" in headers.
-#   . Enable Google Apps passwords for mail, and update it in the code on line 54
-#	. Update your email from which the mail has to be sent.
-# 	. Update your email to which you want the mail to be sent.
-#	. Make whatever changes you want to the message.
-#	. Change the frequency at which you want to run the script.
-#	. You are all done! You can run this script now!
-
+#     . Make the necessary changes in the URL.
+#     . Update your "User-Agent" in headers.
+#     . Enable Google Apps passwords for mail, and update it in the code on line 54
+#     . Update your email from which the mail has to be sent.
+#     . Update your email to which you want the mail to be sent.
+#     . Make whatever changes you want to the message.
+#     . Change the frequency at which you want to run the script.
+#     . You are all done! You can run this script now!
 
 #	. If you want to run this script on startup in Windows, make a batch file 
 #	Learn how to make a batch file from here https://datatofish.com/batch-python-script/
