@@ -29,6 +29,8 @@ data = {}
 file = open('pars.txt', "r")
 for f in file:
     [a, b] = f.split('=', 1)
+    b = b.lstrip()
+    a = a.rstrip()
     data[a] = b[:-1]
 
 # You can use any Amazon product's URL.
@@ -65,7 +67,7 @@ def sendMail(price):
     server.ehlo()
     # Change this before use.
     # Example:
-    #		server.login("abcd@gmail.com", "lndhrbjcwfqgddfdd")
+    #server.login("abcd@gmail.com", "lndhrbjcwfqgddfdd")
     server.login(data['login'], data['pass'])
     subject = 'Amazon item has been restocked!!'
     price = price.split('>', 1)[1][1:].split('<', 1)[0][1:]
