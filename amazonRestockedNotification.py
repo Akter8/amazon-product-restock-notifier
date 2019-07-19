@@ -13,25 +13,23 @@
 # 	Now, open Run, and execute this 'shell:common startup' and paste your batch file in there.
 
 
-# Libraries required for the web-scraping.
-import requests
-from bs4 import BeautifulSoup
-
 # Library required to send the email.
 import smtplib
 
 # Library to run the program over time.
 import time
 
+# Libraries required for the web-scraping.
+import requests
+from bs4 import BeautifulSoup
 
-#Get data
+# Get data
 data = {}
-file = open('pars.txt', "r")
+file = open('D:\\Python Scripts\\Amazon Restock Notification\\pars.txt', "r")
 for f in file:
     [a, b] = f.split('=', 1)
-    b = b.lstrip()
-    a = a.rstrip()
     data[a] = b[:-1]
+file.close()
 
 # You can use any Amazon product's URL.
 url = data['url']
@@ -51,6 +49,7 @@ def checkAvailablity():
         soup = BeautifulSoup(page.content, 'html.parser')
         # The data is stored in a div with ID as 'availability'
         availablity = soup.find(id="availability").get_text().strip()
+        print(availablity)
         availablity = availablity.split('\n')
         if availablity[0] == "In stock.":
             price = soup.find(id='priceblock_ourprice')
@@ -65,13 +64,15 @@ def sendMail(price):
     server.ehlo()
     server.starttls()
     server.ehlo()
-    # Change this before use.
-    # Example:
-    #server.login("abcd@gmail.com", "lndhrbjcwfqgddfdd")
+# Change this before use.
+# Example:
+#		server.login("abcd@gmail.com", "lndhrbjcwfqgddfdd")
     server.login(data['login'], data['pass'])
+    print(data['target'])
     subject = 'Amazon item has been restocked!!'
     price = price.split('>', 1)[1][1:].split('<', 1)[0][1:]
-    body = 'The item you have been waiting for has been restocked. The price is ' + price + '. Check this link out ' + url
+    body = 'The item you have been waiting for has been restocked. The price is ' + \
+        price + '. Check this link out ' + url
     message = f"Subject: {subject}\n\n{body}"
     server.sendmail(
         data['login'],
@@ -83,4 +84,5 @@ def sendMail(price):
 
 while True:
     checkAvailablity()
+    print("imma sleep now")
     time.sleep(60 * 60 * 24)
