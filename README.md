@@ -3,6 +3,9 @@ Sends an email to and from given email IDs whenever a certain product which was 
 
 
 # How to use:
+    . Make the necessary changes in the file GUI.py (change line 158 and line 92)
+    . Launch the GUI.py to make changes in the input.
+    . Click on "Edit the values" to change any data. Then you can either Save+Exit or Save+Run.
     . Make the necessary changes in the URL.
     . Enable 2-factor-authentication on Google. Here: https://www.google.com/landing/2step/
     . Enable Google Apps passwords for mail, and update it in the code. Here: https://myaccount.google.com/apppasswords
