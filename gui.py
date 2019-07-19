@@ -6,6 +6,8 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtGui import QIcon, QPalette
 from PyQt5.QtWidgets import (QApplication, QGridLayout, QLabel, QLineEdit,
                              QPushButton, QWidget)
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 
 class App(QWidget):
@@ -67,6 +69,8 @@ class App(QWidget):
         self.txt_agent.setReadOnly(self.edit)
         self.txt_pass.setReadOnly(self.edit)
         self.txt_email.setReadOnly(self.edit)
+        self.txt_hours.setReadOnly(self.edit)
+        self.txt_mins.setReadOnly(self.edit)
 
     def saveButtonClicked(self):
         with open(self.file, 'w') as f:
@@ -75,6 +79,8 @@ class App(QWidget):
             f.write('pass='+self.txt_pass.text()+'\n')
             f.write('user_agent='+self.txt_agent.text()+'\n')
             f.write('target='+self.txt_toEmail.text()+'\n')
+            f.write('freqh='+self.txt_hours.text()+'\n')
+            f.write('freqm='+self.txt_mins.text()+'\n')
             f.write("LeaveThis=AsIs")
         f.close()
         sys.exit()
@@ -86,10 +92,13 @@ class App(QWidget):
             f.write('pass='+self.txt_pass.text()+'\n')
             f.write('user_agent='+self.txt_agent.text()+'\n')
             f.write('target='+self.txt_toEmail.text()+'\n')
+            f.write('freqh='+self.txt_hours.text()+'\n')
+            f.write('freqm='+self.txt_mins.text()+'\n')
             f.write("LeaveThis=AsIs")
         f.close()
         os.system(
-            'C:/Python37/pythonw.exe "d:/Python Scripts/Amazon Restock Notification/amazonRestockedNotification.py"')
+            'C:/Python37/pythonw.exe "d:/Python Scripts/Amazon Restock Notification/amazonRestockedNotification.py"'
+            )
         sys.exit()
 
     def createFormGroupBox(self):
@@ -134,8 +143,31 @@ class App(QWidget):
         self.txt_toEmail.setPlaceholderText("Enter Target-Email")
         self.txt_toEmail.setText(self.data['target'])
         self.txt_toEmail.setReadOnly(self.edit)
+        # regex = QRegExp('/\S+@\S+\.\S+/')
+        # txt_toEmail_validator = QRegExpValidator(regex, self.txt_toEmail)
+        # self.txt_toEmail.setValidator(txt_toEmail_validator)
         layout.addWidget(self.label_toEmail, 5, 0)
         layout.addWidget(self.txt_toEmail, 5, 1)
+
+        self.label_hours = QLabel('Freq Hours:')
+        self.txt_hours = QLineEdit()
+        self.txt_hours.setPlaceholderText("Enter Frequency Hours")
+        self.txt_hours.setText(self.data['freqh'])
+        self.txt_hours.setReadOnly(self.edit)
+        self.label_mins = QLabel('Minutes:')
+        self.txt_mins = QLineEdit()
+        self.txt_mins.setPlaceholderText("Enter Frequency in Minutes")
+        self.txt_mins.setText(self.data['freqm'])
+        self.txt_mins.setReadOnly(self.edit)
+        regex = QRegExp('[0-9]+')
+        txt_hours_validator = QRegExpValidator(regex, self.txt_hours)
+        self.txt_hours.setValidator(txt_hours_validator)
+        txt_mins_validator = QRegExpValidator(regex, self.txt_mins)
+        self.txt_mins.setValidator(txt_mins_validator)
+        layout.addWidget(self.label_hours, 6, 0)
+        layout.addWidget(self.txt_hours, 6, 1)
+        layout.addWidget(self.label_mins, 6, 2)
+        layout.addWidget(self.txt_mins, 6, 3)
 
         return(layout)
 

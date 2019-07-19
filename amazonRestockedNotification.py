@@ -85,4 +85,4 @@ def sendMail(price):
 while True:
     checkAvailablity()
     print("imma sleep now")
-    time.sleep(60 * 60 * 24)
+    time.sleep(data['freqh']*60*60 + data['freqm']*60)
